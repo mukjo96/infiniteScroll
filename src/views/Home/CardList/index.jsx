@@ -22,6 +22,7 @@ export default function CardList() {
   }, [page, fetchMoreComments]);
 
   const handleScroll = ({ target }) => {
+    if (isLoading) return;
     if (isFetchComments(target)) {
       setPage(page + 1);
     }
