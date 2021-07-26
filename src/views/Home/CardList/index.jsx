@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
 import CommentWorker from '../../../services/CommentWorker';
+import { isFetchComments } from '../../../services/isFetchComments.js';
 
 export default function CardList() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,17 +22,7 @@ export default function CardList() {
   }, [page, fetchMoreComments]);
 
   const handleScroll = ({ target }) => {
-    if (isLoading) return;
-    const scrollHeight = Math.max(
-      document.documentElement.scrollHeight,
-      target.scrollHeight
-    );
-    const scrollTop = Math.max(
-      document.documentElement.scrollTop,
-      target.scrollTop
-    );
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (isFetchComments(target)) {
       setPage(page + 1);
     }
   };
