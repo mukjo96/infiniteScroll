@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
 import { commentAPI } from '../../../services/apis/comment.js';
 
 export default function CardList() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    fetchMoreComments();
-  }, [page]);
-
-  const fetchMoreComments = async () => {
+  const fetchMoreComments = useCallback(async () => {
     setIsLoading(true);
     const { data } = await commentAPI.getComments(page);
-    setComments([...comments, ...data]);
+    setComments((comments) => [...comments, ...data]);
     setIsLoading(false);
-  };
+  }, [page]);
+
+  useEffect(() => {
+    fetchMoreComments();
+  }, [page, fetchMoreComments]);
 
   const handleScroll = ({ target }) => {
-    let scrollHeight = Math.max(
+    const scrollHeight = Math.max(
       document.documentElement.scrollHeight,
       target.scrollHeight
     );
-    let scrollTop = Math.max(
+    const scrollTop = Math.max(
       document.documentElement.scrollTop,
       target.scrollTop
     );
-    let clientHeight = document.documentElement.clientHeight;
+    const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight === scrollHeight && !isLoading) {
       setPage(page + 1);
     }
   };
