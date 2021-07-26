@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
-import { commentAPI } from '../../../services/apis/comment.js';
+import CommentWorker from '../../../services/CommentWorker';
 
 export default function CardList() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
 
   const fetchMoreComments = useCallback(async () => {
+    const commentWorker = new CommentWorker();
     setIsLoading(true);
-    const { data } = await commentAPI.getComments(page);
-    setComments((comments) => [...comments, ...data]);
+    const newComments = await commentWorker.getCommentByPage(page);
+    setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
   }, [page]);
 
@@ -20,6 +21,7 @@ export default function CardList() {
   }, [page, fetchMoreComments]);
 
   const handleScroll = ({ target }) => {
+    if (isLoading) return;
     const scrollHeight = Math.max(
       document.documentElement.scrollHeight,
       target.scrollHeight
@@ -29,8 +31,7 @@ export default function CardList() {
       target.scrollTop
     );
     const clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight === scrollHeight && !isLoading) {
+    if (scrollTop + clientHeight === scrollHeight) {
       setPage(page + 1);
     }
   };
