@@ -1,10 +1,11 @@
 import GlobalStyle from './GlobalStyle';
+import Home from './views/Home/index';
 
 function App() {
   return (
     <div className='App'>
       <GlobalStyle />
-      App
+      <Home />
     </div>
   );
 }
