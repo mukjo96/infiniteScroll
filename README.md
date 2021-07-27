@@ -1,3 +1,7 @@
+# 배포
+
+`https://mystifying-poitras-aec79b.netlify.app/`
+
 # 0. 설치 및 실행
 
 1. `git clone https://github.com/simian114/infiniteScroll && cd ./infiniteScroll`
@@ -47,6 +51,6 @@ src/
 ㄴ index.js
 ```
 
-# 5. 데모
-![inf scroll](https://user-images.githubusercontent.com/49119625/127108225-bc0cdcee-b003-455d-a023-cefe15da196e.gif)
+# 5. 데모 GIF
 
+![inf scroll](https://user-images.githubusercontent.com/49119625/127108225-bc0cdcee-b003-455d-a023-cefe15da196e.gif)
