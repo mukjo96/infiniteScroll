@@ -4,7 +4,7 @@ import Card from './Card/index';
 import CommentWorker from '../../../services/CommentWorker';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 
-export default function CardList() {
+function CardList() {
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentWorker] = useState(new CommentWorker());
@@ -15,7 +15,6 @@ export default function CardList() {
     setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
   }, [commentWorker]);
-
   const setTargetObserver = useIntersectionObserver(fetchMoreComments);
 
   return (
@@ -28,6 +27,8 @@ export default function CardList() {
     </StyledCardListContainer>
   );
 }
+
+export default React.memo(CardList);
 
 const StyledCardListContainer = styled.div`
   display: flex;
