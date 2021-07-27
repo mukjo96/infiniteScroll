@@ -5,7 +5,7 @@ class CommentWorker {
     this.page = 1;
     this.commentAPI = commentAPI;
   }
-  async getCommentByPage() {
+  async getMoreComments() {
     try {
       const { data } = await this.commentAPI.getComments(this.page);
       this.page += 1;

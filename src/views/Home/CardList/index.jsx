@@ -10,7 +10,7 @@ function CardList() {
   const [commentWorker] = useState(new CommentWorker());
   const fetchMoreComments = useCallback(async () => {
     setIsLoading(true);
-    const newComments = await commentWorker.getCommentByPage();
+    const newComments = await commentWorker.getMoreComments();
     setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
   }, [commentWorker]);
