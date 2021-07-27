@@ -31,12 +31,12 @@ const CardContainer = styled.div`
   margin-bottom: 14px;
 `;
 
-const IdAndEmailContainer = styled.div`
+const IdAndEmailContainer = styled.span`
   display: flex;
   margin-bottom: 10px;
 `;
 
-const CommentContainer = styled.div``;
+const CommentContainer = styled.span``;
 
 const Title = styled.h3`
   font-size: 18px;
