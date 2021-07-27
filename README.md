@@ -29,22 +29,24 @@
 ```
 src/
 ㄴ hooks/
-	ㄴ useIntersectionObserver.jsx
+  ㄴ useIntersectionObserver.jsx
 ㄴ services/
-	ㄴ apis/
-		ㄴ axiosInstance.js
-		ㄴ comment.js
-	ㄴ CommentWorker.js
+  ㄴ apis/
+    ㄴ axiosInstance.js
+    ㄴ comment.js
+  ㄴ CommentWorker.js
 ㄴ views/
-	ㄴ Home/
-		ㄴ CardList/
-			ㄴ Card/
-				ㄴ index.jsx
-			ㄴ index.jsx
-		ㄴ index.jsx
+  ㄴ Home/
+    ㄴ CardList/
+      ㄴ Card/
+        ㄴ index.jsx
+      ㄴ index.jsx
+    ㄴ index.jsx
 ㄴ App.js
 ㄴ GlobalStyle.js
 ㄴ index.js
 ```
 
-# 5. GIF
+# 5. 데모
+![inf scroll](https://user-images.githubusercontent.com/49119625/127108225-bc0cdcee-b003-455d-a023-cefe15da196e.gif)
+
