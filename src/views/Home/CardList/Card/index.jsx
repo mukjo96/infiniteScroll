@@ -45,6 +45,6 @@ const Title = styled.h3`
   margin-bottom: 2px;
 `;
 
-const Contents = styled.span`
+const Contents = styled.p`
   font-size: 18px;
 `;
