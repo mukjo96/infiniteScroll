@@ -2,11 +2,13 @@ import { commentAPI } from './apis/comment';
 
 class CommentWorker {
   constructor() {
+    this.page = 1;
     this.commentAPI = commentAPI;
   }
-  async getCommentByPage(page) {
+  async getCommentByPage() {
     try {
-      const { data } = await this.commentAPI.getComments(page);
+      const { data } = await this.commentAPI.getComments(this.page);
+      this.page += 1;
       return data;
     } catch (error) {
       console.error(error);

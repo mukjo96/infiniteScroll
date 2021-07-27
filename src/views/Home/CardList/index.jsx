@@ -1,38 +1,57 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
 import CommentWorker from '../../../services/CommentWorker';
-import { isFetchComments } from '../../../services/isFetchComments.js';
 
 export default function CardList() {
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
-  const [page, setPage] = useState(1);
+  const [commentWorker] = useState(new CommentWorker());
+  const [element, setElement] = useState(null);
+
+  const observer = useRef(
+    new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          fetchMoreComments();
+        }
+      },
+      { threshold: 1 }
+    )
+  );
 
   const fetchMoreComments = useCallback(async () => {
-    const commentWorker = new CommentWorker();
     setIsLoading(true);
-    const newComments = await commentWorker.getCommentByPage(page);
+    const newComments = await commentWorker.getCommentByPage();
     setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
-  }, [page]);
+  }, [commentWorker]);
+
+  useEffect(() => {
+    const currentElement = element;
+    const currentObserver = observer.current;
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [element]);
 
   useEffect(() => {
     fetchMoreComments();
-  }, [page, fetchMoreComments]);
-
-  const handleScroll = ({ target }) => {
-    if (isLoading) return;
-    if (isFetchComments(target)) {
-      setPage(page + 1);
-    }
-  };
+  }, [fetchMoreComments]);
 
   return (
-    <StyledCardListContainer onScroll={handleScroll}>
+    <StyledCardListContainer>
       {comments.map((comment) => (
         <Card key={comment.id} comment={comment} />
       ))}
+      {isLoading && <div>Loading...</div>}
+      {!isLoading && <div ref={setElement}></div>}
     </StyledCardListContainer>
   );
 }
