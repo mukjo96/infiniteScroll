@@ -1,25 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
 import CommentWorker from '../../../services/CommentWorker';
+import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 
 export default function CardList() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentWorker] = useState(new CommentWorker());
-  const [element, setElement] = useState(null);
-
-  const observer = useRef(
-    new IntersectionObserver(
-      (entries) => {
-        const first = entries[0];
-        if (first.isIntersecting) {
-          fetchMoreComments();
-        }
-      },
-      { threshold: 1 }
-    )
-  );
 
   const fetchMoreComments = useCallback(async () => {
     setIsLoading(true);
@@ -28,22 +16,7 @@ export default function CardList() {
     setIsLoading(false);
   }, [commentWorker]);
 
-  useEffect(() => {
-    const currentElement = element;
-    const currentObserver = observer.current;
-    if (currentElement) {
-      currentObserver.observe(currentElement);
-    }
-    return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
-    };
-  }, [element]);
-
-  useEffect(() => {
-    fetchMoreComments();
-  }, [fetchMoreComments]);
+  const setTargetObserver = useIntersectionObserver(fetchMoreComments);
 
   return (
     <StyledCardListContainer>
@@ -51,7 +24,7 @@ export default function CardList() {
         <Card key={comment.id} comment={comment} />
       ))}
       {isLoading && <div>Loading...</div>}
-      {!isLoading && <div ref={setElement}></div>}
+      {!isLoading && <div ref={setTargetObserver}></div>}
     </StyledCardListContainer>
   );
 }
