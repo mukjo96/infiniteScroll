@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# 0. 설치 및 실행
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. `git clone https://github.com/simian114/infiniteScroll && cd ./infiniteScroll`
+2. `npm install && npm run start`
 
-## Available Scripts
+# 1. 과제 설명
 
-In the project directory, you can run:
+> Implement the user's comment data list with infinite scrolling by getting more 10 comments repeatedly.
 
-### `yarn start`
+10개의 댓글을 반복적으로 가져와 무한 스크롤로 사용자의 댓글 데이터 목록을 구현합니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# 2. 기술 스택 (사용한 라이브러리와 그 이유...)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. `styled-components`
+   - `css in js` 를 위해 사용했습니다.
+2. `styled-reset`
+   - 브라우저의 기본 `css` 를 제거하기 위해 사용했습니다.
+3. `axios`
+   - `api` 를 쉽게 사용하고 관리하기 위해 사용했습니다.
 
-### `yarn test`
+# 3. 구현 목록
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [x] axios를 이용한 데이터 Fetching
+- [x] Figma를 참고하여 css 구현
+- [x] IntersectionObserver를 이용한 무한스크롤 구현
 
-### `yarn build`
+# 4. 파일 구조
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+ㄴ hooks/
+	ㄴ useIntersectionObserver.jsx
+ㄴ services/
+	ㄴ apis/
+		ㄴ axiosInstance.js
+		ㄴ comment.js
+	ㄴ CommentWorker.js
+ㄴ views/
+	ㄴ Home/
+		ㄴ CardList/
+			ㄴ Card/
+				ㄴ index.jsx
+			ㄴ index.jsx
+		ㄴ index.jsx
+ㄴ App.js
+ㄴ GlobalStyle.js
+ㄴ index.js
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 5. GIF
