@@ -1,32 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
+import 'intersection-observer';
 
-export const useIntersectionObserver = (fetchMoreComments) => {
-  const [element, setElement] = useState(null);
-
+export const useIntersectionObserver = (callback) => {
+  const [observationTarget, setObservationTarget] = useState(null);
   const observer = useRef(
     new IntersectionObserver(
-      (entries) => {
-        const first = entries[0];
-        if (first.isIntersecting) {
-          fetchMoreComments();
-        }
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        callback();
       },
       { threshold: 1 }
     )
   );
 
   useEffect(() => {
-    const currentElement = element;
+    const currentTarget = observationTarget;
     const currentObserver = observer.current;
-    if (currentElement) {
-      currentObserver.observe(currentElement);
+    if (currentTarget) {
+      currentObserver.observe(currentTarget);
     }
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
+      if (currentTarget) {
+        currentObserver.unobserve(currentTarget);
       }
     };
-  }, [element]);
+  }, [observationTarget]);
 
-  return setElement;
+  return setObservationTarget;
 };

@@ -8,14 +8,13 @@ function CardList() {
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentWorker] = useState(new CommentWorker());
-
   const fetchMoreComments = useCallback(async () => {
     setIsLoading(true);
     const newComments = await commentWorker.getCommentByPage();
     setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
   }, [commentWorker]);
-  const setTargetObserver = useIntersectionObserver(fetchMoreComments);
+  const setObservationTarget = useIntersectionObserver(fetchMoreComments);
 
   return (
     <StyledCardListContainer>
@@ -23,7 +22,7 @@ function CardList() {
         <Card key={comment.id} comment={comment} />
       ))}
       {isLoading && <div>Loading...</div>}
-      {!isLoading && <div ref={setTargetObserver}></div>}
+      {!isLoading && <div ref={setObservationTarget}></div>}
     </StyledCardListContainer>
   );
 }
