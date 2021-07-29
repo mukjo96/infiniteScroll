@@ -1,8 +1,9 @@
+import { DEFAULT_PAGE } from '../constants/commentAPI.js';
 import { commentAPI } from './apis/comment';
 
 class CommentWorker {
   constructor() {
-    this.page = 1;
+    this.page = DEFAULT_PAGE;
     this.commentAPI = commentAPI;
   }
   async getMoreComments() {

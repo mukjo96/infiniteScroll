@@ -1,3 +1,4 @@
+import { LIMIT } from '../../constants/commentAPI.js';
 import { axiosInstance } from './axiosInstance';
 
 export const commentAPI = {
@@ -7,7 +8,7 @@ export const commentAPI = {
       url: '/comments',
       params: {
         _page: page,
-        _limit: '10',
+        _limit: LIMIT,
       },
     }),
 };

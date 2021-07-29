@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BASE_URL } from '../../constants/commentAPI.js';
 
 export const axiosInstance = axios.create({
   withCredentials: true,
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: BASE_URL,
 });
