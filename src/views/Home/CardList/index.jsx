@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
-import CommentWorker from '../../../services/CommentWorker';
-import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
+import CommentWorker from 'services/CommentWorker.js';
+import { useIntersectionObserver } from 'hooks/useIntersectionObserver.jsx';
 import { LIMIT } from 'constants/commentAPI.js';
 
 function CardList() {
