@@ -1,28 +1,33 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card/index';
 import CommentWorker from '../../../services/CommentWorker';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
+import { LIMIT } from 'constants/commentAPI.js';
 
 function CardList() {
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentWorker] = useState(new CommentWorker());
-  const fetchMoreComments = useCallback(async () => {
+  const [lastPage, setLastPage] = useState(false);
+
+  const setObservationTarget = useIntersectionObserver(async () => {
     setIsLoading(true);
     const newComments = await commentWorker.getMoreComments();
+    if (newComments.length < LIMIT) {
+      setLastPage(true);
+    }
     setComments((comments) => [...comments, ...newComments]);
     setIsLoading(false);
-  }, [commentWorker]);
-  const setObservationTarget = useIntersectionObserver(fetchMoreComments);
-
+  });
   return (
     <StyledCardListContainer>
       {comments.map((comment) => (
         <Card key={comment.id} comment={comment} />
       ))}
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && <div ref={setObservationTarget}></div>}
+      {lastPage && <div>더이상 불러올 데이터가 없습니다...</div>}
+      {!lastPage && isLoading && <div>Loading...</div>}
+      {!lastPage && !isLoading && <div ref={setObservationTarget}></div>}
     </StyledCardListContainer>
   );
 }
