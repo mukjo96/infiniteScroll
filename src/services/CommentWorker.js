@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE } from '../constants/commentAPI.js';
+import { DEFAULT_PAGE } from 'constants/commentAPI.js';
 import { commentAPI } from './apis/comment';
 
 class CommentWorker {

@@ -24,3 +24,5 @@ yarn-error.log*
 
 # jsconfig
 jsconfig.json
+
+.env

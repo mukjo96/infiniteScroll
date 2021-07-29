@@ -1,4 +1,4 @@
-import { LIMIT } from '../../constants/commentAPI.js';
+import { LIMIT } from 'constants/commentAPI.js';
 import { axiosInstance } from './axiosInstance';
 
 export const commentAPI = {
